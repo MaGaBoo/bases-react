@@ -1,20 +1,20 @@
 import { useState } from "react"
 
-interface initialState {
-    counter: number
+interface Props {
+    initialValue?: number
 }
 
-const Counter = () => {
+const Counter = ({ initialValue = 0 }: Props) => {
 
-    const [counter, setCounter] = useState<initialState>({ counter: 15 })
+    const [counter, setCounter] = useState(initialValue)
 
     const handleClick = () => {
-        setCounter(prev => ({ counter: prev.counter + 1}))
+        setCounter(prev => prev + 1)
     }
 
   return (
     <>
-    <h1>Counter: {counter.counter}</h1>
+    <h1>Counter: { counter }</h1>
     <button 
     className="btn btn-light"
     onClick={handleClick}>
