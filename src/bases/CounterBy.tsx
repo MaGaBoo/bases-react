@@ -26,7 +26,7 @@ const CounterBy = ({ initialValue = 5 }: Props) => {
   return (
     <>
       <h1>CounterBy: { counter }</h1>
-      <h2>Clicks: { clicks }</h2>
+      <h1>Clicks: { clicks }</h1>
       <button className="btn btn-light mx-2" onClick={() => handleClick(1)}>
         +1
       </button>
