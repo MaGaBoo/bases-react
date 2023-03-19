@@ -1,27 +1,35 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
-interface Props {
-    initialValue?: number
-}
+const MAXIMUM_COUNT = 10;
 
-const Counter = ({ initialValue = 0 }: Props) => {
+const CounterEffect = () => {
+  const [counter, setCounter] = useState(5)
+  const counterElement = useRef<HTMLHeadingElement>(null)
 
-    const [counter, setCounter] = useState(initialValue)
+  const handleClick = () => {
+    setCounter((prev) => Math.min(prev + 1, MAXIMUM_COUNT)); // Toma el valor mínimo de los dos
+  };
 
-    const handleClick = () => {
-        setCounter(prev => prev + 1)
-    }
+  useEffect(() => {
+    if (counter < 10) return;
+    console.log("%cValor máximo alcanzado", "background-color: powderblue")
+
+    const tl = gsap.timeline()
+    tl.to(counterElement.current, { y: -10, duration: 0.2, ease: "ease.out" })
+    .to(counterElement.current, { y: 0, duration: 1, ease: "bounce.out" })
+    
+  }, [counter]);
 
   return (
     <>
-    <h1>Counter: { counter }</h1>
-    <button 
-    className="btn btn-light"
-    onClick={handleClick}>
+      <h1>CounterEffect: </h1>
+      <h2 ref={counterElement}>{counter}</h2>
+      <button className="btn btn-light" onClick={handleClick}>
         +1
-    </button>
+      </button>
     </>
-  )
-}
+  );
+};
 
-export default Counter
+export default CounterEffect;
